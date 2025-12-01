@@ -7,10 +7,11 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
   final OrderService _orderService;
 
   OrdersBloc({required OrderService orderService})
-      : _orderService = orderService,
-        super(OrdersLoading()) {
+    : _orderService = orderService,
+      super(OrdersLoading()) {
     on<LoadMyOrders>(_onLoadMyOrders);
     on<CreateOrder>(_onCreateOrder);
+    on<CancelOrder>(_onCancelOrder);
   }
 
   Future<void> _onLoadMyOrders(
@@ -34,6 +35,20 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
     try {
       final order = await _orderService.createOrder(event.data);
       emit(OrderCreated(order));
+    } catch (e) {
+      emit(OrdersError(e.toString()));
+    }
+  }
+
+  Future<void> _onCancelOrder(
+    CancelOrder event,
+    Emitter<OrdersState> emit,
+  ) async {
+    emit(OrdersLoading());
+    try {
+      await _orderService.cancelOrder(event.orderId);
+      emit(OrderCancelled());
+      add(LoadMyOrders()); // Reload orders after cancellation
     } catch (e) {
       emit(OrdersError(e.toString()));
     }

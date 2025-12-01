@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../../../logic/blocs/auth/auth_bloc.dart';
 import '../../../logic/blocs/auth/auth_event.dart';
 import '../../../logic/blocs/auth/auth_state.dart';
@@ -47,7 +48,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         listener: (context, state) {
           if (state is AuthAuthenticated) {
             AppUtils.showToast('Registration successful!');
-            Navigator.pushReplacementNamed(context, '/login');
+            context.go('/products');
           } else if (state is AuthError) {
             AppUtils.showToast(state.message);
           }
@@ -172,7 +173,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       onPressed: isLoading
                           ? null
                           : () {
-                              Navigator.pop(context);
+                              context.go('/login');
                             },
                       child: const Text('Already have an account? Login'),
                     ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 class BottomNavBar extends StatelessWidget {
@@ -9,49 +10,103 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const neonGreen = Color(0xFFCCFF00);
-    const black = Colors.black;
 
-    return BottomNavigationBar(
-      backgroundColor: neonGreen,
-      currentIndex: currentIndex,
-      type: BottomNavigationBarType.fixed,
-      selectedItemColor: black,
-      unselectedItemColor: Colors.black54,
-      showUnselectedLabels: true,
-
-      onTap: (index) {
-        switch (index) {
-          case 0:
-            context.go('/products');
-            break;
-          case 1:
-            context.go('/cart');
-            break;
-          case 2:
-            context.go('/profile');
-            break;
-        }
-      },
-
-      items: const [
-        BottomNavigationBarItem(
-          label: "Home",
-          icon: Icon(Icons.home_outlined),
-          activeIcon: Icon(Icons.home),
+    return Container(
+      decoration: BoxDecoration(
+        color: neonGreen,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.08),
+            blurRadius: 10,
+            offset: const Offset(0, -5),
+          ),
+        ],
+      ),
+      child: SafeArea(
+        child: Container(
+          height: 70,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _NavBarItem(
+                label: "Home",
+                iconPath: 'assets/icon/home.svg',
+                isSelected: currentIndex == 0,
+                onTap: () => context.go('/products'),
+              ),
+              _NavBarItem(
+                label: "Cart",
+                iconPath: 'assets/icon/shopping-cart.svg',
+                isSelected: currentIndex == 1,
+                onTap: () => context.go('/cart'),
+              ),
+              _NavBarItem(
+                label: "Profile",
+                iconPath: 'assets/icon/profile.svg',
+                isSelected: currentIndex == 2,
+                onTap: () => context.go('/profile'),
+              ),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+}
 
-        BottomNavigationBarItem(
-          label: "Cart",
-          icon: Icon(Icons.shopping_cart_outlined),
-          activeIcon: Icon(Icons.shopping_cart),
-        ),
+class _NavBarItem extends StatelessWidget {
+  final String label;
+  final String iconPath;
+  final bool isSelected;
+  final VoidCallback onTap;
 
-        BottomNavigationBarItem(
-          label: "Profile",
-          icon: Icon(Icons.person_outline),
-          activeIcon: Icon(Icons.person),
+  const _NavBarItem({
+    required this.label,
+    required this.iconPath,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Icon
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeOut,
+              child: SvgPicture.asset(
+                iconPath,
+                width: 24,
+                height: 24,
+                colorFilter: ColorFilter.mode(
+                  isSelected ? Colors.black : Colors.black.withOpacity(0.4),
+                  BlendMode.srcIn,
+                ),
+              ),
+            ),
+            const SizedBox(height: 4),
+
+            // Dot Indicator (Minimal Style)
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              width: isSelected ? 4 : 0,
+              height: isSelected ? 4 : 0,
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.8),
+                shape: BoxShape.circle,
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

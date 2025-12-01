@@ -34,7 +34,17 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     try {
       // Assuming there's an admin endpoint for users
       final response = await _apiService.dio.get('/api/users');
-      final List<dynamic> data = response.data;
+
+      // Handle wrapped response: { users: [...] }
+      List<dynamic> data;
+      if (response.data is Map && response.data['users'] != null) {
+        data = response.data['users'] as List<dynamic>;
+      } else if (response.data is List) {
+        data = response.data as List<dynamic>;
+      } else {
+        throw Exception('Invalid users response format');
+      }
+
       final users = data.map((json) => User.fromJson(json)).toList();
       emit(AdminUsersLoaded(users));
     } catch (e) {

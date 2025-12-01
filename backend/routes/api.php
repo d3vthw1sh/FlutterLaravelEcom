@@ -40,6 +40,9 @@ Route::middleware([JwtAuth::class])->group(function () {
     // -------------------------
     // USER ROUTES
     // -------------------------
+    Route::get('/users', [AuthController::class, 'allUsers']);
+    Route::get('/users/profile', [AuthController::class, 'profile']);
+    Route::delete('/users/{id}', [AuthController::class, 'deleteUser']);
     Route::get('/users/verify-email', [AuthController::class, 'verifyEmail']);
     Route::post('/users/password-reset-request', [AuthController::class, 'passwordResetRequest']);
     Route::post('/users/password-reset', [AuthController::class, 'passwordReset']);
@@ -61,6 +64,7 @@ Route::middleware([JwtAuth::class])->group(function () {
     // ORDER SYSTEM (NO STRIPE)
     // -------------------------
     Route::post('/checkout', [OrderController::class, 'checkout']);
+    Route::get('/orders/my-orders', [OrderController::class, 'myOrders']);
     Route::get('/orders', [OrderController::class, 'index']);
     Route::get('/orders/user/{id}', [OrderController::class, 'userOrders']);
     Route::put('/orders/{id}', [OrderController::class, 'markDelivered']);

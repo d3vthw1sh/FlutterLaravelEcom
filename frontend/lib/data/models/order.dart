@@ -58,9 +58,21 @@ class Order {
   });
 
   factory Order.fromJson(Map<String, dynamic> json) {
+    // Handle both createdAt (camelCase from API) and created_at (snake_case from Laravel)
+    String? createdAtStr = json['createdAt'] ?? json['created_at'];
+    DateTime parsedDate = DateTime.now();
+    if (createdAtStr != null) {
+      try {
+        parsedDate = DateTime.parse(createdAtStr);
+      } catch (e) {
+        parsedDate = DateTime.now();
+      }
+    }
+
     return Order(
-      id: json['_id'] ?? '',
-      orderItems: (json['orderItems'] as List?)
+      id: json['_id'] ?? json['id'] ?? '',
+      orderItems:
+          (json['orderItems'] as List?)
               ?.map((i) => OrderItem.fromJson(i))
               .toList() ??
           [],
@@ -70,9 +82,7 @@ class Order {
       totalPrice: json['totalPrice'] ?? 0,
       paymentStatus: json['paymentStatus'] ?? 'Pending',
       isDelivered: json['isDelivered'] ?? false,
-      createdAt: json['createdAt'] != null
-          ? DateTime.parse(json['createdAt'])
-          : DateTime.now(),
+      createdAt: parsedDate,
     );
   }
 

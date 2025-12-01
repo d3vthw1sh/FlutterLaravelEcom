@@ -28,6 +28,8 @@ class OrderCreated extends OrdersState {
   List<Object> get props => [order];
 }
 
+class OrderCancelled extends OrdersState {}
+
 class OrdersError extends OrdersState {
   final String message;
 

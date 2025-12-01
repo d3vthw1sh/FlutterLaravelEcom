@@ -43,27 +43,19 @@ class ApiConstants {
       return path;
     }
 
-    // Map backend image paths to local assets
-    // Extract filename from path (handle both /uploads/filename and just filename)
-    String filename = path;
-    if (path.contains('/')) {
-      filename = path.split('/').last;
-    }
-
-    // Check if this is a product image and map to local asset
-    if (filename.isNotEmpty) {
-      // Try to find matching local asset
-      final localAssetPath = 'assets/images/products/$filename';
-      return localAssetPath;
-    }
-
-    // Fallback: return original path pointing to server
+    // For backend images, construct the full URL
     String normalizedPath = path;
-    if (!path.startsWith('/') && !path.startsWith('uploads/')) {
-      normalizedPath = '/uploads/$path';
-    } else if (!path.startsWith('/uploads/')) {
-      normalizedPath = '/uploads/${path.replaceFirst('/', '')}';
+
+    // If path doesn't start with /, add it
+    if (!path.startsWith('/')) {
+      normalizedPath = '/$path';
     }
+
+    // If path doesn't include /uploads/, add it
+    if (!normalizedPath.contains('/uploads/')) {
+      normalizedPath = '/uploads$normalizedPath';
+    }
+
     return '$baseUrl$normalizedPath';
   }
 }

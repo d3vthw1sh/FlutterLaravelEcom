@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import '../../data/models/product.dart';
 import '../../core/utils.dart';
 import '../../core/constants.dart';
@@ -7,11 +8,7 @@ class ProductCard extends StatelessWidget {
   final Product product;
   final VoidCallback onTap;
 
-  const ProductCard({
-    super.key,
-    required this.product,
-    required this.onTap,
-  });
+  const ProductCard({super.key, required this.product, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +21,7 @@ class ProductCard extends StatelessWidget {
       child: Card(
         elevation: 2,
         shadowColor: cs.shadow.withOpacity(0.06),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: onTap,
@@ -84,15 +79,17 @@ class ProductCard extends StatelessWidget {
                         right: 12,
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
+                            horizontal: 10,
+                            vertical: 5,
+                          ),
                           decoration: BoxDecoration(
-                            color: cs.primary.withOpacity(0.85),
+                            color: const Color(0xFFCCFF00),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Text(
                             "NEW",
                             style: tt.labelSmall?.copyWith(
-                              color: cs.onPrimary,
+                              color: Colors.black,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 1.1,
                             ),
@@ -166,19 +163,28 @@ class ProductCard extends StatelessWidget {
       );
     }
 
-    return Image.network(
-      ApiConstants.resolveImageUrl(imagePath),
+    return CachedNetworkImage(
+      imageUrl: ApiConstants.resolveImageUrl(imagePath),
       fit: BoxFit.cover,
       width: double.infinity,
-      errorBuilder: (_, __, ___) => _errorIcon(fallbackIconColor),
+      // Resize image in memory to reduce RAM usage (approx 300px width is enough for grid)
+      memCacheWidth: 350,
+      placeholder: (context, url) => Center(
+        child: SizedBox(
+          width: 24,
+          height: 24,
+          child: CircularProgressIndicator(
+            strokeWidth: 2,
+            color: fallbackIconColor.withOpacity(0.3),
+          ),
+        ),
+      ),
+      errorWidget: (context, url, error) => _errorIcon(fallbackIconColor),
+      fadeInDuration: const Duration(milliseconds: 200),
     );
   }
 
   Widget _errorIcon(Color color) => Center(
-        child: Icon(
-          Icons.image_not_supported_outlined,
-          size: 40,
-          color: color,
-        ),
-      );
+    child: Icon(Icons.image_not_supported_outlined, size: 40, color: color),
+  );
 }

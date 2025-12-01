@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
-            Navigator.pushReplacementNamed(context, '/products');
+            context.go('/products');
           } else if (state is AuthError) {
             AppUtils.showToast(state.message);
           }

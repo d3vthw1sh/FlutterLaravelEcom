@@ -17,3 +17,12 @@ class CreateOrder extends OrdersEvent {
   @override
   List<Object> get props => [data];
 }
+
+class CancelOrder extends OrdersEvent {
+  final String orderId;
+
+  const CancelOrder(this.orderId);
+
+  @override
+  List<Object> get props => [orderId];
+}

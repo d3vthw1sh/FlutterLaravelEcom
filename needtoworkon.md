@@ -9,6 +9,7 @@ Based on dependency order and what needs to be built first, here's the work in *
 _These are foundational - everything else depends on them_
 
 - ✅ Fix product images display - DONE
+  - ✅ Product images seeded and mapped to local assets (`UpdateProductImagesSeeder` re-run)
 - ✅ Fix product route navigation - DONE
 - ✅ **Product Detail Screen** - DONE
 
@@ -39,6 +40,8 @@ _Needed before checkout and orders_
   - ✅ Forgot password flow
   - ✅ Proper error messages from API
   - ✅ Loading states
+  - ✅ Fixed login crash (mapped backend `name` -> frontend `username` in `User.fromJson`)
+  - ✅ Fixed registration crash & navigation (replaced `Navigator` with `GoRouter` and navigate to `/products`)
 
 - ✅ **Auth State Management** - DONE
   - ✅ Token storage & retrieval
@@ -115,11 +118,15 @@ _Can be worked on parallel with Phase 4_
 
 _Depends on auth being solid_
 
-- [ ] **Admin Console**
-  - Role-based access (check if user is admin)
-  - User management (list, delete, promote to admin)
-  - Product management (add, edit, delete products)
-  - Order management (view all orders, mark delivered, delete)
+- [x] **Admin Console** - DONE
+  - ✅ Role-based access (check if user is admin)
+  - ✅ User management (list, delete, promote to admin)
+    - ✅ Added `/api/users` endpoint for listing all users
+    - ✅ Added `/api/users/{id}` DELETE endpoint for user deletion
+    - ✅ Updated admin_bloc to handle users response (wrapped in `{ users: [...] }`)
+    - ✅ Users tab displays user list with avatars, email, admin badge, delete action
+  - [ ] Product management (add, edit, delete products)
+  - [ ] Order management (view all orders, mark delivered, delete)
 
 ---
 

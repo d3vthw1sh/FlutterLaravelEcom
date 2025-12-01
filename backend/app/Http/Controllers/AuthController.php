@@ -111,6 +111,67 @@ class AuthController extends Controller
     }
 
     // -------------------------
+    // GET PROFILE (AUTHENTICATED USER)
+    // -------------------------
+    public function profile()
+    {
+        $user = auth()->user();
+
+        return response()->json([
+            '_id' => (string)$user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'googleImage' => $user->googleImage,
+            'googleId' => $user->googleId,
+            'isAdmin' => $user->isAdmin,
+            'active' => $user->active,
+            'firstLogin' => $user->firstLogin,
+            'created' => $user->created_at
+        ]);
+    }
+
+    // -------------------------
+    // GET ALL USERS (ADMIN ONLY)
+    // -------------------------
+    public function allUsers()
+    {
+        $users = User::all();
+
+        return response()->json([
+            'users' => $users->map(function ($user) {
+                return [
+                    '_id' => (string)$user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'googleImage' => $user->googleImage,
+                    'googleId' => $user->googleId,
+                    'isAdmin' => $user->isAdmin,
+                    'active' => $user->active,
+                    'firstLogin' => $user->firstLogin,
+                    'created' => $user->created_at
+                ];
+            })->toArray()
+        ]);
+    }
+
+    // -------------------------
+    // DELETE USER (ADMIN ONLY)
+    // -------------------------
+    public function deleteUser($id)
+    {
+        try {
+            $user = User::find($id);
+            if (!$user) {
+                return response()->json(['message' => 'User not found'], 404);
+            }
+            $user->delete();
+            return response()->json(['message' => 'User deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    // -------------------------
     // VERIFY EMAIL TOKEN (dummy)
     // -------------------------
     public function verifyEmail()

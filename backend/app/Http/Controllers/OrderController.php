@@ -80,6 +80,18 @@ class OrderController extends Controller
     }
 
     // ---------------------------------------------------------
+    // GET ORDERS FOR AUTHENTICATED USER
+    // ---------------------------------------------------------
+    public function myOrders()
+    {
+        $user = auth()->user();
+        if (!$user) return response('Unauthorized', 401);
+
+        return response()->json(
+            Order::where('user_id', $user->id)->get()
+        );
+    }
+    // ---------------------------------------------------------
     // MARK ORDER DELIVERED
     // ---------------------------------------------------------
     public function markDelivered($id)

@@ -15,6 +15,8 @@ import 'presentation/screens/admin/admin_console_screen.dart';
 import 'presentation/screens/general/success_screen.dart';
 import 'presentation/screens/general/cancel_screen.dart';
 import 'presentation/screens/profile/user_profile_screen.dart';
+import 'presentation/screens/orders/order_details_screen.dart';
+import 'data/models/order.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -53,6 +55,13 @@ class AppRouter {
       GoRoute(
         path: '/orders',
         builder: (context, state) => const OrderHistoryScreen(),
+      ),
+      GoRoute(
+        path: '/order-details',
+        builder: (context, state) {
+          final order = state.extra as Order;
+          return OrderDetailsScreen(order: order);
+        },
       ),
       GoRoute(
         path: '/profile',
