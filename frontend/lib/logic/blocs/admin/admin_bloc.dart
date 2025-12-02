@@ -59,7 +59,17 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     emit(AdminLoading());
     try {
       final response = await _apiService.dio.get(ApiConstants.orders);
-      final List<dynamic> data = response.data;
+
+      // Handle wrapped response: { orders: [...] } or direct array
+      List<dynamic> data;
+      if (response.data is Map && response.data['orders'] != null) {
+        data = response.data['orders'] as List<dynamic>;
+      } else if (response.data is List) {
+        data = response.data as List<dynamic>;
+      } else {
+        throw Exception('Invalid orders response format');
+      }
+
       final orders = data.map((json) => Order.fromJson(json)).toList();
       emit(AdminOrdersLoaded(orders));
     } catch (e) {
