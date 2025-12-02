@@ -110,7 +110,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                             shape: BoxShape.circle,
                                             color: _currentImageIndex == index
                                                 ? neonGreen
-                                                : Colors.white.withOpacity(0.5),
+                                                : Colors.white.withValues(
+                                                    alpha: 0.5,
+                                                  ),
                                           ),
                                         ),
                                       ),
@@ -193,8 +195,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     ),
                                     decoration: BoxDecoration(
                                       color: product.stock > 0
-                                          ? Colors.green.withOpacity(0.1)
-                                          : Colors.red.withOpacity(0.1),
+                                          ? Colors.green.withValues(alpha: 0.1)
+                                          : Colors.red.withValues(alpha: 0.1),
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(
                                         color: product.stock > 0
@@ -254,7 +256,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     color: Colors.white,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.08),
+                        color: Colors.black.withValues(alpha: 0.08),
                         blurRadius: 10,
                         offset: const Offset(0, -5),
                       ),

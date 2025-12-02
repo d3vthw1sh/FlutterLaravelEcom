@@ -20,7 +20,7 @@ class ProductCard extends StatelessWidget {
       duration: const Duration(milliseconds: 150),
       child: Card(
         elevation: 2,
-        shadowColor: cs.shadow.withOpacity(0.06),
+        shadowColor: cs.shadow.withValues(alpha: 0.06),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
@@ -38,7 +38,9 @@ class ProductCard extends StatelessWidget {
                     Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: cs.surfaceContainerHighest.withOpacity(0.25),
+                        color: cs.surfaceContainerHighest.withValues(
+                          alpha: 0.25,
+                        ),
                       ),
                       child: product.images.isNotEmpty
                           ? _buildImage(
@@ -63,7 +65,7 @@ class ProductCard extends StatelessWidget {
                               begin: Alignment.bottomCenter,
                               end: Alignment.topCenter,
                               colors: [
-                                cs.surface.withOpacity(0.18),
+                                cs.surface.withValues(alpha: 0.18),
                                 Colors.transparent,
                               ],
                             ),
@@ -175,7 +177,7 @@ class ProductCard extends StatelessWidget {
           height: 24,
           child: CircularProgressIndicator(
             strokeWidth: 2,
-            color: fallbackIconColor.withOpacity(0.3),
+            color: fallbackIconColor.withValues(alpha: 0.3),
           ),
         ),
       ),
