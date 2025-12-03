@@ -1,3 +1,5 @@
+import '../../core/image_mapper.dart';
+
 class CartItem {
   final String id;
   final String name;
@@ -18,10 +20,14 @@ class CartItem {
   });
 
   factory CartItem.fromJson(Map<String, dynamic> json) {
+    // Map the image path to local asset
+    final String rawImage = json['image'] ?? '';
+    final String mappedImage = ImageMapper.mapToAsset(rawImage);
+
     return CartItem(
       id: json['id'] ?? '',
       name: json['name'] ?? '',
-      image: json['image'] ?? '',
+      image: mappedImage,
       price: json['price'] ?? 0,
       stock: json['stock'] ?? 0,
       qty: json['qty'] ?? 0,

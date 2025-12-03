@@ -9,7 +9,11 @@ import '../../../core/constants.dart';
 class ProductsTab extends StatelessWidget {
   const ProductsTab({super.key});
 
-  void _confirmDelete(BuildContext context, String productId, String productName) {
+  void _confirmDelete(
+    BuildContext context,
+    String productId,
+    String productName,
+  ) {
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
@@ -56,20 +60,41 @@ class ProductsTab extends StatelessWidget {
                   leading: product.images.isNotEmpty
                       ? ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            ApiConstants.resolveImageUrl(product.images.first),
-                            width: 60,
-                            height: 60,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                width: 60,
-                                height: 60,
-                                color: Colors.grey[300],
-                                child: const Icon(Icons.image_not_supported),
-                              );
-                            },
-                          ),
+                          child: product.images.first.startsWith('assets/')
+                              ? Image.asset(
+                                  product.images.first,
+                                  width: 60,
+                                  height: 60,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      width: 60,
+                                      height: 60,
+                                      color: Colors.grey[300],
+                                      child: const Icon(
+                                        Icons.image_not_supported,
+                                      ),
+                                    );
+                                  },
+                                )
+                              : Image.network(
+                                  ApiConstants.resolveImageUrl(
+                                    product.images.first,
+                                  ),
+                                  width: 60,
+                                  height: 60,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      width: 60,
+                                      height: 60,
+                                      color: Colors.grey[300],
+                                      child: const Icon(
+                                        Icons.image_not_supported,
+                                      ),
+                                    );
+                                  },
+                                ),
                         )
                       : Container(
                           width: 60,
@@ -104,7 +129,8 @@ class ProductsTab extends StatelessWidget {
                   ),
                   trailing: IconButton(
                     icon: const Icon(Icons.delete, color: Colors.red),
-                    onPressed: () => _confirmDelete(context, product.id, product.name),
+                    onPressed: () =>
+                        _confirmDelete(context, product.id, product.name),
                   ),
                   isThreeLine: true,
                 ),

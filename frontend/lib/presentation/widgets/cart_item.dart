@@ -19,13 +19,16 @@ class CartItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: cs.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: cs.outline.withValues(alpha: 0.3)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
@@ -52,9 +55,9 @@ class CartItemWidget extends StatelessWidget {
               children: [
                 Text(
                   item.brand.toUpperCase(),
-                  style: const TextStyle(
+                  style: tt.labelSmall?.copyWith(
                     fontSize: 10,
-                    color: Colors.black54,
+                    color: cs.onSurfaceVariant,
                     letterSpacing: 0.5,
                   ),
                 ),
@@ -65,10 +68,10 @@ class CartItemWidget extends StatelessWidget {
                   item.name,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  style: tt.titleMedium?.copyWith(
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
-                    color: Colors.black,
+                    color: cs.onSurface,
                   ),
                 ),
 
@@ -76,10 +79,10 @@ class CartItemWidget extends StatelessWidget {
 
                 Text(
                   AppUtils.formatPrice(item.price),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF2563EB),
+                    color: cs.primary, // Royal Blue
                   ),
                 ),
 
@@ -89,6 +92,7 @@ class CartItemWidget extends StatelessWidget {
                 Row(
                   children: [
                     _qtyButton(
+                      context,
                       icon: Icons.remove_rounded,
                       enabled: item.qty > 1,
                       onPressed: onDecrease,
@@ -97,14 +101,14 @@ class CartItemWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: Text(
                         '${item.qty}',
-                        style: const TextStyle(
+                        style: tt.bodyLarge?.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
-                          color: Colors.black,
                         ),
                       ),
                     ),
                     _qtyButton(
+                      context,
                       icon: Icons.add_rounded,
                       enabled: item.qty < item.stock,
                       onPressed: onIncrease,
@@ -122,9 +126,9 @@ class CartItemWidget extends StatelessWidget {
                 onPressed: onRemove,
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
-                icon: const Icon(
+                icon: Icon(
                   Icons.close_rounded,
-                  color: Colors.black54,
+                  color: cs.onSurfaceVariant,
                   size: 20,
                 ),
               ),
@@ -133,10 +137,10 @@ class CartItemWidget extends StatelessWidget {
 
               Text(
                 AppUtils.formatPrice(item.price * item.qty),
-                style: const TextStyle(
+                style: tt.bodyMedium?.copyWith(
                   fontSize: 14,
                   fontWeight: FontWeight.w800,
-                  color: Colors.black,
+                  color: cs.onSurface,
                 ),
               ),
             ],
@@ -147,28 +151,25 @@ class CartItemWidget extends StatelessWidget {
   }
 
   // Quantity Button
-  Widget _qtyButton({
+  Widget _qtyButton(
+    BuildContext context, {
     required IconData icon,
     required bool enabled,
     required VoidCallback onPressed,
   }) {
+    final primary = Theme.of(context).colorScheme.primary;
+
     return Container(
       width: 30,
       height: 30,
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(
-          color: enabled ? const Color(0xFF2563EB) : Colors.grey.shade300,
-        ),
+        color: Colors.transparent,
+        border: Border.all(color: enabled ? primary : Colors.white24),
         borderRadius: BorderRadius.circular(8),
       ),
       child: IconButton(
         padding: EdgeInsets.zero,
-        icon: Icon(
-          icon,
-          size: 18,
-          color: enabled ? const Color(0xFF2563EB) : Colors.grey,
-        ),
+        icon: Icon(icon, size: 18, color: enabled ? primary : Colors.white24),
         onPressed: enabled ? onPressed : null,
       ),
     );

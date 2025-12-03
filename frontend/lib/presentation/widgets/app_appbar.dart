@@ -24,10 +24,14 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+
     return AppBar(
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+      elevation: 0,
       leading: showBack
           ? IconButton(
-              icon: const Icon(Icons.arrow_back),
+              icon: Icon(Icons.arrow_back, color: cs.onSurface),
               onPressed: () {
                 if (context.canPop()) {
                   context.pop();
@@ -37,12 +41,15 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
               },
             )
           : null,
-      title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+      title: Text(
+        title,
+        style: TextStyle(fontWeight: FontWeight.bold, color: cs.onSurface),
+      ),
       centerTitle: true,
       actions: [
         if (showSearch)
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: Icon(Icons.search, color: cs.onSurface),
             onPressed: () {
               // TODO: Implement search functionality
               ScaffoldMessenger.of(context).showSnackBar(
@@ -60,7 +67,10 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
               return Stack(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.shopping_cart_outlined),
+                    icon: Icon(
+                      Icons.shopping_cart_outlined,
+                      color: cs.onSurface,
+                    ),
                     onPressed: () => context.push('/cart'),
                   ),
                   if (count > 0)
@@ -70,7 +80,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
                       child: Container(
                         padding: const EdgeInsets.all(2),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFF97316),
+                          color: cs.secondary, // Orange Accent
                           borderRadius: BorderRadius.circular(6),
                         ),
                         constraints: const BoxConstraints(
@@ -82,6 +92,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 8,
+                            fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -95,7 +106,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
           BlocBuilder<AuthBloc, AuthState>(
             builder: (context, state) {
               return IconButton(
-                icon: const Icon(Icons.person_outline),
+                icon: Icon(Icons.person_outline, color: cs.onSurface),
                 onPressed: () {
                   if (state is AuthAuthenticated) {
                     context.push('/profile');

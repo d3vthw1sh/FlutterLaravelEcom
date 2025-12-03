@@ -19,9 +19,15 @@ class ProductCard extends StatelessWidget {
       scale: 1.0,
       duration: const Duration(milliseconds: 150),
       child: Card(
-        elevation: 2,
-        shadowColor: cs.shadow.withValues(alpha: 0.06),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        elevation: 0,
+        color: cs.surface,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          side: BorderSide(
+            color: cs.outline.withValues(alpha: 0.6),
+            width: 1.5,
+          ),
+        ),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: onTap,
@@ -39,7 +45,7 @@ class ProductCard extends StatelessWidget {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: cs.surfaceContainerHighest.withValues(
-                          alpha: 0.25,
+                          alpha: 0.3,
                         ),
                       ),
                       child: product.images.isNotEmpty
@@ -56,7 +62,7 @@ class ProductCard extends StatelessWidget {
                             ),
                     ),
 
-                    // Soft gradient fade (Japanese UI style)
+                    // Soft gradient fade
                     Positioned.fill(
                       child: IgnorePointer(
                         child: DecoratedBox(
@@ -65,7 +71,7 @@ class ProductCard extends StatelessWidget {
                               begin: Alignment.bottomCenter,
                               end: Alignment.topCenter,
                               colors: [
-                                cs.surface.withValues(alpha: 0.18),
+                                cs.surface.withValues(alpha: 0.1),
                                 Colors.transparent,
                               ],
                             ),
@@ -74,7 +80,7 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
 
-                    // NEW Badge (MUJI minimalist)
+                    // NEW Badge
                     if (product.productIsNew)
                       Positioned(
                         top: 12,
@@ -85,14 +91,14 @@ class ProductCard extends StatelessWidget {
                             vertical: 5,
                           ),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFF97316),
+                            color: cs.secondary, // Orange Accent
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Text(
                             "NEW",
                             style: tt.labelSmall?.copyWith(
                               color: Colors.white,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w700,
                               letterSpacing: 1.1,
                             ),
                           ),
@@ -110,11 +116,11 @@ class ProductCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Brand (minimal, soft grey)
+                    // Brand
                     Text(
                       product.brand.toUpperCase(),
                       style: tt.labelSmall?.copyWith(
-                        color: cs.outline,
+                        color: cs.onSurfaceVariant,
                         fontSize: 10.5,
                         letterSpacing: 1.5,
                       ),
@@ -127,8 +133,9 @@ class ProductCard extends StatelessWidget {
                     Text(
                       product.name,
                       style: tt.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         height: 1.2,
+                        color: cs.onSurface,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -136,11 +143,11 @@ class ProductCard extends StatelessWidget {
 
                     const SizedBox(height: 10),
 
-                    // Price (Japanese mall style)
+                    // Price
                     Text(
                       AppUtils.formatPrice(product.price),
                       style: tt.titleLarge?.copyWith(
-                        color: cs.primary,
+                        color: cs.primary, // Royal Blue
                         fontWeight: FontWeight.w700,
                         letterSpacing: -0.5,
                       ),

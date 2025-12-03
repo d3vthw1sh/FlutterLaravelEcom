@@ -13,7 +13,8 @@ class UserProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const neonGreen = Color(0xFFCCFF00);
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
 
     return Scaffold(
       appBar: const AppAppBar(title: 'Profile', showBack: false),
@@ -34,7 +35,12 @@ class UserProfileScreen extends StatelessWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(
-                      color: neonGreen.withValues(alpha: 0.1),
+                      color: cs.surface,
+                      border: Border(
+                        bottom: BorderSide(
+                          color: cs.outline.withValues(alpha: 0.2),
+                        ),
+                      ),
                     ),
                     child: Column(
                       children: [
@@ -42,32 +48,30 @@ class UserProfileScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(4),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.all(color: neonGreen, width: 3),
+                            border: Border.all(color: cs.primary, width: 3),
                           ),
-                          child: const CircleAvatar(
+                          child: CircleAvatar(
                             radius: 50,
-                            backgroundColor: Colors.white,
+                            backgroundColor: cs.primaryContainer,
                             child: Icon(
                               Icons.person,
                               size: 50,
-                              color: Colors.black,
+                              color: cs.primary,
                             ),
                           ),
                         ),
                         const SizedBox(height: 16),
                         Text(
                           user.username,
-                          style: const TextStyle(
-                            fontSize: 24,
+                          style: tt.headlineSmall?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           user.email,
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.grey[600],
+                          style: tt.bodyMedium?.copyWith(
+                            color: cs.onSurfaceVariant,
                           ),
                         ),
                         if (user.isAdmin) ...[
@@ -78,13 +82,13 @@ class UserProfileScreen extends StatelessWidget {
                               vertical: 6,
                             ),
                             decoration: BoxDecoration(
-                              color: neonGreen,
+                              color: cs.primary,
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            child: const Text(
+                            child: Text(
                               'ADMIN',
-                              style: TextStyle(
-                                fontSize: 12,
+                              style: tt.labelSmall?.copyWith(
+                                color: cs.onPrimary,
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 1.2,
                               ),
@@ -144,21 +148,18 @@ class UserProfileScreen extends StatelessWidget {
                             onPressed: () {
                               _showLogoutDialog(context);
                             },
-                            icon: const Icon(Icons.logout, color: Colors.red),
-                            label: const Text(
+                            icon: Icon(Icons.logout, color: cs.error),
+                            label: Text(
                               'Logout',
                               style: TextStyle(
-                                color: Colors.red,
+                                color: cs.error,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             style: OutlinedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(vertical: 16),
-                              side: const BorderSide(
-                                color: Colors.red,
-                                width: 2,
-                              ),
+                              side: BorderSide(color: cs.error, width: 2),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
@@ -178,18 +179,18 @@ class UserProfileScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.person_outline, size: 80, color: Colors.grey),
+                Icon(Icons.person_outline, size: 80, color: cs.outline),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Please login to view your profile',
-                  style: TextStyle(fontSize: 16),
+                  style: tt.titleMedium,
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () => context.go('/login'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: neonGreen,
-                    foregroundColor: Colors.black,
+                    backgroundColor: cs.primary,
+                    foregroundColor: cs.onPrimary,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 32,
                       vertical: 12,
@@ -213,15 +214,18 @@ class UserProfileScreen extends StatelessWidget {
     required String subtitle,
     required VoidCallback onTap,
   }) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: cs.surface,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.grey.shade200),
+          border: Border.all(color: cs.outline.withValues(alpha: 0.2)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.03),
@@ -235,10 +239,10 @@ class UserProfileScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: const Color(0xFFCCFF00).withValues(alpha: 0.2),
+                color: cs.primary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(icon, size: 24),
+              child: Icon(icon, size: 24, color: cs.primary),
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -247,20 +251,22 @@ class UserProfileScreen extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
-                      fontSize: 16,
+                    style: tt.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   const SizedBox(height: 2),
                   Text(
                     subtitle,
-                    style: TextStyle(fontSize: 13, color: Colors.grey[600]),
+                    style: tt.bodyMedium?.copyWith(
+                      color: cs.onSurfaceVariant,
+                      fontSize: 13,
+                    ),
                   ),
                 ],
               ),
             ),
-            Icon(Icons.chevron_right, color: Colors.grey[400]),
+            Icon(Icons.chevron_right, color: cs.outline),
           ],
         ),
       ),
@@ -270,6 +276,7 @@ class UserProfileScreen extends StatelessWidget {
   void _showEditProfileDialog(BuildContext context, user) {
     final nameController = TextEditingController(text: user.username);
     final emailController = TextEditingController(text: user.email);
+    final cs = Theme.of(context).colorScheme;
 
     showDialog(
       context: context,
@@ -308,8 +315,8 @@ class UserProfileScreen extends StatelessWidget {
               AppUtils.showToast('Profile update coming soon!');
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFCCFF00),
-              foregroundColor: Colors.black,
+              backgroundColor: cs.primary,
+              foregroundColor: cs.onPrimary,
             ),
             child: const Text('Save'),
           ),
@@ -322,6 +329,7 @@ class UserProfileScreen extends StatelessWidget {
     final currentPasswordController = TextEditingController();
     final newPasswordController = TextEditingController();
     final confirmPasswordController = TextEditingController();
+    final cs = Theme.of(context).colorScheme;
 
     showDialog(
       context: context,
@@ -375,8 +383,8 @@ class UserProfileScreen extends StatelessWidget {
               AppUtils.showToast('Password change coming soon!');
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFCCFF00),
-              foregroundColor: Colors.black,
+              backgroundColor: cs.primary,
+              foregroundColor: cs.onPrimary,
             ),
             child: const Text('Change'),
           ),

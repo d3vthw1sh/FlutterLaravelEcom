@@ -15,6 +15,7 @@ class Order extends Model
         'shippingPrice',
         'subtotal',
         'totalPrice',
+        'paymentStatus',
         'isDelivered',
         'deliveredAt'
     ];
@@ -22,8 +23,19 @@ class Order extends Model
     protected $casts = [
         'orderItems' => 'array',
         'shippingAddress' => 'array',
-        'isDelivered' => 'boolean'
+        'isDelivered' => 'boolean',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deliveredAt' => 'datetime',
     ];
+
+    protected $appends = ['createdAt'];
+
+    // Make created_at available as createdAt for Flutter compatibility
+    public function getCreatedAtAttribute()
+    {
+        return $this->attributes['created_at'] ?? null;
+    }
 
     public function user()
     {

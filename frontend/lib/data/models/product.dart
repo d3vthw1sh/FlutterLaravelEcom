@@ -1,3 +1,5 @@
+import '../../core/image_mapper.dart';
+
 class Product {
   final String id;
   final String brand;
@@ -28,6 +30,10 @@ class Product {
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
+    // Get images from JSON and map them to local assets
+    final List<String> rawImages = List<String>.from(json['images'] ?? []);
+    final List<String> mappedImages = ImageMapper.mapListToAssets(rawImages);
+
     return Product(
       id: (json['id'] ?? json['_id'] ?? '').toString(),
       brand: json['brand'] ?? '',
@@ -35,7 +41,7 @@ class Product {
       subtitle: json['subtitle'] ?? '',
       category: json['category'] ?? '',
       description: json['description'] ?? '',
-      images: List<String>.from(json['images'] ?? []),
+      images: mappedImages,
       price: json['price'] ?? 0,
       stock: json['stock'] ?? 0,
       productIsNew: json['productIsNew'] ?? false,

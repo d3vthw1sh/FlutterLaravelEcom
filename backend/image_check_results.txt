@@ -1,0 +1,157 @@
+﻿=== PRODUCT IMAGE CHECK ===
+
+Product: 5
+  ID: 1
+  Images count: 2
+    [Γ£ù] Image 0: /images/fairphone5_image_1.avif
+    [Γ£ù] Image 1: /images/fairphone5_image_2.avif
+
+Product: Pixel 7
+  ID: 2
+  Images count: 2
+    [Γ£ù] Image 0: /images/googlePixel7_image_1.avif
+    [Γ£ù] Image 1: /images/googlePixel7_image_2.avif
+
+Product: iPhone 13
+  ID: 3
+  Images count: 2
+    [Γ£ô] Image 0: assets/images/products/iphone13_image_1.png
+    [Γ£ô] Image 1: assets/images/products/iphone13_image_2.png
+
+Product: S23
+  ID: 4
+  Images count: 2
+    [Γ£ù] Image 0: /images/s23_image_1.avif
+    [Γ£ù] Image 1: /images/s23_image_2.avif
+
+Product: Galaxy A53 5G Enterprise Edition
+  ID: 5
+  Images count: 2
+    [Γ£ù] Image 0: /images/a535g_image_1.avif
+    [Γ£ù] Image 1: /images/a535g_image_2.avif
+
+Product: Galaxy S23 Ultra
+  ID: 6
+  Images count: 2
+    [Γ£ù] Image 0: /images/s23ultra_image_1.avif
+    [Γ£ù] Image 1: /images/s23ultra_image_2.avif
+
+Product: Galaxy A54 5G
+  ID: 7
+  Images count: 2
+    [Γ£ù] Image 0: /images/s545g_image_1.webp
+    [Γ£ù] Image 1: /images/s545g_image_2.avif
+
+Product: Redmi Note 12 Pro+
+  ID: 8
+  Images count: 2
+    [Γ£ù] Image 0: /images/xiaomi_note_12_pro_image_1.avif
+    [Γ£ù] Image 1: /images/xiaomi_note_12_pro_image_2.avif
+
+Product: Fairphone 5
+  ID: 9
+  Images count: 2
+    [Γ£ô] Image 0: assets/images/products/fairphone5_image_1.png
+    [Γ£ô] Image 1: assets/images/products/fairphone5_image_2.png
+
+Product: 5
+  ID: 10
+  Images count: 2
+    [Γ£ù] Image 0: /images/fairphone5_image_1.avif
+    [Γ£ù] Image 1: /images/fairphone5_image_2.avif
+
+Product: iPhone 15 Pro Max
+  ID: 11
+  Images count: 2
+    [Γ£ô] Image 0: assets/images/products/iphone15_image_1.png
+    [Γ£ô] Image 1: assets/images/products/iphone15_image_2.png
+
+Product: 5
+  ID: 12
+  Images count: 1
+    [Γ£ù] Image 0: /images/fairphone5_image_1.avif
+
+Product: Fairphone 5
+  ID: 13
+  Images count: 2
+    [Γ£ô] Image 0: assets/images/products/fairphone5_image_1.png
+    [Γ£ô] Image 1: assets/images/products/fairphone5_image_2.png
+
+Product: Fairphone 5
+  ID: 14
+  Images count: 2
+    [Γ£ô] Image 0: assets/images/products/fairphone5_image_1.png
+    [Γ£ô] Image 1: assets/images/products/fairphone5_image_2.png
+
+Product: 5
+  ID: 15
+  Images count: 2
+    [Γ£ù] Image 0: /images/fairphone5_image_1.avif
+    [Γ£ù] Image 1: /images/fairphone5_image_2.avif
+
+Product: Fairphone 5
+  ID: 16
+  Images count: 2
+    [Γ£ô] Image 0: assets/images/products/fairphone5_image_1.png
+    [Γ£ô] Image 1: assets/images/products/fairphone5_image_2.png
+
+Product: 5
+  ID: 17
+  Images count: 2
+    [Γ£ù] Image 0: /images/fairphone5_image_1.avif
+    [Γ£ù] Image 1: /images/fairphone5_image_2.avif
+
+Product: Fairphone 5
+  ID: 18
+  Images count: 2
+    [Γ£ô] Image 0: assets/images/products/fairphone5_image_1.png
+    [Γ£ô] Image 1: assets/images/products/fairphone5_image_2.png
+
+Product: 5
+  ID: 19
+  Images count: 2
+    [Γ£ù] Image 0: /images/fairphone5_image_1.avif
+    [Γ£ù] Image 1: /images/fairphone5_image_2.avif
+
+Product: 5
+  ID: 20
+  Images count: 2
+    [Γ£ù] Image 0: /images/fairphone5_image_1.avif
+    [Γ£ù] Image 1: /images/fairphone5_image_2.avif
+
+Product: 5
+  ID: 21
+  Images count: 2
+    [Γ£ù] Image 0: /images/fairphone5_image_1.avif
+    [Γ£ù] Image 1: /images/fairphone5_image_2.avif
+
+Product: 5
+  ID: 22
+  Images count: 2
+    [Γ£ù] Image 0: /images/fairphone5_image_1.avif
+    [Γ£ù] Image 1: /images/fairphone5_image_2.avif
+
+Product: Fairphone 5
+  ID: 23
+  Images count: 2
+    [Γ£ô] Image 0: assets/images/products/fairphone5_image_1.png
+    [Γ£ô] Image 1: assets/images/products/fairphone5_image_2.png
+
+Product: 5
+  ID: 24
+  Images count: 2
+    [Γ£ù] Image 0: /images/fairphone5_image_1.avif
+    [Γ£ù] Image 1: /images/fairphone5_image_2.avif
+
+Product: 5
+  ID: 25
+  Images count: 2
+    [Γ£ù] Image 0: /images/fairphone5_image_1.avif
+    [Γ£ù] Image 1: /images/fairphone5_image_2.avif
+
+Product: 5
+  ID: 26
+  Images count: 2
+    [Γ£ù] Image 0: /images/fairphone5_image_1.avif
+    [Γ£ù] Image 1: /images/fairphone5_image_2.avif
+

@@ -32,8 +32,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const neonGreen = Color(0xFFCCFF00);
-
     return Scaffold(
       appBar: const AppAppBar(title: 'Product Details', showBack: true),
       body: BlocBuilder<ProductDetailBloc, ProductDetailState>(
@@ -64,6 +62,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
           if (state is ProductDetailLoaded) {
             final product = state.product;
+            final cs = Theme.of(context).colorScheme;
+            final tt = Theme.of(context).textTheme;
 
             return Column(
               children: [
@@ -109,7 +109,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: _currentImageIndex == index
-                                                ? neonGreen
+                                                ? cs.primary
                                                 : Colors.white.withValues(
                                                     alpha: 0.5,
                                                   ),
@@ -132,9 +132,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 children: [
                                   Text(
                                     product.brand.toUpperCase(),
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.grey[600],
+                                    style: tt.labelMedium?.copyWith(
+                                      color: cs.onSurfaceVariant,
                                       fontWeight: FontWeight.w600,
                                       letterSpacing: 1.5,
                                     ),
@@ -147,7 +146,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                         vertical: 4,
                                       ),
                                       decoration: BoxDecoration(
-                                        color: neonGreen,
+                                        color: cs.secondary,
                                         borderRadius: BorderRadius.circular(4),
                                       ),
                                       child: const Text(
@@ -156,6 +155,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                           fontSize: 10,
                                           fontWeight: FontWeight.bold,
                                           letterSpacing: 1.2,
+                                          color: Colors.white,
                                         ),
                                       ),
                                     ),
@@ -167,10 +167,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               // Name
                               Text(
                                 product.name,
-                                style: const TextStyle(
-                                  fontSize: 26,
+                                style: tt.headlineSmall?.copyWith(
                                   fontWeight: FontWeight.bold,
                                   height: 1.2,
+                                  color: cs.onSurface,
                                 ),
                               ),
                               const SizedBox(height: 20),
@@ -181,10 +181,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 children: [
                                   Text(
                                     AppUtils.formatPrice(product.price),
-                                    style: const TextStyle(
-                                      fontSize: 32,
+                                    style: tt.headlineMedium?.copyWith(
                                       fontWeight: FontWeight.bold,
                                       letterSpacing: -0.5,
+                                      color: cs.primary,
                                     ),
                                   ),
                                   const Spacer(),
@@ -196,12 +196,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     decoration: BoxDecoration(
                                       color: product.stock > 0
                                           ? Colors.green.withValues(alpha: 0.1)
-                                          : Colors.red.withValues(alpha: 0.1),
+                                          : cs.error.withValues(alpha: 0.1),
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(
                                         color: product.stock > 0
                                             ? Colors.green
-                                            : Colors.red,
+                                            : cs.error,
                                         width: 1.5,
                                       ),
                                     ),
@@ -212,7 +212,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                       style: TextStyle(
                                         color: product.stock > 0
                                             ? Colors.green.shade700
-                                            : Colors.red.shade700,
+                                            : cs.error,
                                         fontWeight: FontWeight.w600,
                                         fontSize: 12,
                                       ),
@@ -223,19 +223,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               const SizedBox(height: 28),
 
                               // Description
-                              const Text(
+                              Text(
                                 'Description',
-                                style: TextStyle(
-                                  fontSize: 18,
+                                style: tt.titleLarge?.copyWith(
                                   fontWeight: FontWeight.bold,
+                                  color: cs.onSurface,
                                 ),
                               ),
                               const SizedBox(height: 10),
                               Text(
                                 product.description,
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.grey[700],
+                                style: tt.bodyLarge?.copyWith(
+                                  color: cs.onSurfaceVariant,
                                   height: 1.6,
                                 ),
                               ),
@@ -253,7 +252,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 // Bottom Action Bar
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: cs.surface,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withValues(alpha: 0.08),
@@ -271,7 +270,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           Container(
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: Colors.grey.shade300,
+                                color: cs.outline.withValues(alpha: 0.5),
                                 width: 1.5,
                               ),
                               borderRadius: BorderRadius.circular(12),
@@ -292,8 +291,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   ),
                                   child: Text(
                                     '$_quantity',
-                                    style: const TextStyle(
-                                      fontSize: 16,
+                                    style: tt.titleMedium?.copyWith(
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -328,10 +326,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     }
                                   : null,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: neonGreen,
-                                foregroundColor: Colors.black,
-                                disabledBackgroundColor: Colors.grey.shade300,
-                                disabledForegroundColor: Colors.grey.shade600,
+                                backgroundColor: cs.primary,
+                                foregroundColor: cs.onPrimary,
+                                disabledBackgroundColor:
+                                    cs.surfaceContainerHighest,
+                                disabledForegroundColor: cs.onSurfaceVariant,
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 16,
                                 ),

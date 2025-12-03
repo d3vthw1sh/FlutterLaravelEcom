@@ -52,14 +52,10 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.shopping_bag,
-                  size: 100,
-                  color: Colors.white,
-                ),
+                Icon(Icons.shopping_bag, size: 100, color: Colors.white),
                 const SizedBox(height: 24),
                 const Text(
-                  'E-Commerce',
+                  'Phsar',
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,

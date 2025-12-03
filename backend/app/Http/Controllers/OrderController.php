@@ -47,6 +47,7 @@ class OrderController extends Controller
             'shippingPrice' => $request->shipping,
             'subtotal' => $request->subtotal,
             'totalPrice' => $request->subtotal + $request->shipping,
+            'paymentStatus' => 'Pending',
             'isDelivered' => false,
             'deliveredAt' => null
         ]);
@@ -85,11 +86,13 @@ class OrderController extends Controller
     public function myOrders()
     {
         $user = auth()->user();
-        if (!$user) return response('Unauthorized', 401);
+        if (!$user) return response()->json(['error' => 'Unauthorized'], 401);
 
-        return response()->json(
-            Order::where('user_id', $user->id)->get()
-        );
+        $orders = Order::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json($orders);
     }
     // ---------------------------------------------------------
     // MARK ORDER DELIVERED
