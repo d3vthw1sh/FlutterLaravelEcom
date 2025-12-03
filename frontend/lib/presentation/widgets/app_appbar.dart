@@ -70,7 +70,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
                       child: Container(
                         padding: const EdgeInsets.all(2),
                         decoration: BoxDecoration(
-                          color: Colors.red,
+                          color: const Color(0xFFF97316),
                           borderRadius: BorderRadius.circular(6),
                         ),
                         constraints: const BoxConstraints(

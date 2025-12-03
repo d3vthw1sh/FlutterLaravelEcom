@@ -59,6 +59,7 @@ Route::middleware([JwtAuth::class])->group(function () {
     Route::post('/products', [ProductController::class, 'store']);
     Route::put('/products', [ProductController::class, 'update']);
     Route::delete('/products/{id}', [ProductController::class, 'destroy']);
+    Route::get('/reviews', [ProductController::class, 'allReviews']);
 
     // -------------------------
     // ORDER SYSTEM (NO STRIPE)
@@ -67,6 +68,6 @@ Route::middleware([JwtAuth::class])->group(function () {
     Route::get('/orders/my-orders', [OrderController::class, 'myOrders']);
     Route::get('/orders', [OrderController::class, 'index']);
     Route::get('/orders/user/{id}', [OrderController::class, 'userOrders']);
-    Route::put('/orders/{id}', [OrderController::class, 'markDelivered']);
+    Route::put('/orders/{id}/delivered', [OrderController::class, 'markDelivered']);
     Route::delete('/orders/{id}', [OrderController::class, 'destroy']);
 });

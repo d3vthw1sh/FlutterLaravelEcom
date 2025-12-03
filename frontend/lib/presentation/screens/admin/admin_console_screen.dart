@@ -7,6 +7,7 @@ import '../../../core/utils.dart';
 import 'users_tab.dart';
 import 'orders_tab.dart';
 import 'products_tab.dart';
+import 'reviews_tab.dart';
 
 class AdminConsoleScreen extends StatefulWidget {
   const AdminConsoleScreen({super.key});
@@ -22,7 +23,7 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
         _loadTabData(_tabController.index);
@@ -41,6 +42,9 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen>
         break;
       case 2:
         context.read<AdminBloc>().add(LoadAllProducts());
+        break;
+      case 3:
+        context.read<AdminBloc>().add(LoadAllReviews());
         break;
     }
   }
@@ -62,6 +66,7 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen>
             Tab(text: 'Users', icon: Icon(Icons.people)),
             Tab(text: 'Orders', icon: Icon(Icons.shopping_bag)),
             Tab(text: 'Products', icon: Icon(Icons.inventory)),
+            Tab(text: 'Reviews', icon: Icon(Icons.star)),
           ],
         ),
       ),
@@ -80,6 +85,7 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen>
             UsersTab(),
             OrdersTab(),
             ProductsTab(),
+            ReviewsTab(),
           ],
         ),
       ),

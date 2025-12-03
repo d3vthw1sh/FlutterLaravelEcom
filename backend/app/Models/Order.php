@@ -25,13 +25,6 @@ class Order extends Model
         'isDelivered' => 'boolean'
     ];
 
-    protected $appends = ['_id'];
-
-    public function get_IdAttribute()
-    {
-        return $this->id;
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);

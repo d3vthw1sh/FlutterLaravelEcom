@@ -70,7 +70,7 @@ class Order {
     }
 
     return Order(
-      id: json['_id'] ?? json['id'] ?? '',
+      id: (json['_id'] ?? json['id'] ?? '').toString(),
       orderItems:
           (json['orderItems'] as List?)
               ?.map((i) => OrderItem.fromJson(i))

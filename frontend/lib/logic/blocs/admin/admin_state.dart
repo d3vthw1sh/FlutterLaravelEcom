@@ -39,6 +39,15 @@ class AdminProductsLoaded extends AdminState {
   List<Object> get props => [products];
 }
 
+class AdminReviewsLoaded extends AdminState {
+  final List<dynamic> reviews;
+
+  const AdminReviewsLoaded(this.reviews);
+
+  @override
+  List<Object> get props => [reviews];
+}
+
 class AdminActionSuccess extends AdminState {}
 
 class AdminError extends AdminState {

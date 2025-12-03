@@ -137,4 +137,13 @@ class ProductController extends Controller
 
         return response("Product deleted", 200);
     }
+
+    // -------------------------
+    // GET ALL REVIEWS (ADMIN)
+    // -------------------------
+    public function allReviews()
+    {
+        $reviews = Review::with(['product', 'user'])->orderBy('created_at', 'desc')->get();
+        return response()->json(['reviews' => $reviews]);
+    }
 }

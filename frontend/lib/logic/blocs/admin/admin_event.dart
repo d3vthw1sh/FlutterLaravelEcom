@@ -13,6 +13,8 @@ class LoadAllOrders extends AdminEvent {}
 
 class LoadAllProducts extends AdminEvent {}
 
+class LoadAllReviews extends AdminEvent {}
+
 class DeleteUser extends AdminEvent {
   final String id;
 
@@ -38,6 +40,16 @@ class DeleteProduct extends AdminEvent {
 
   @override
   List<Object> get props => [id];
+}
+
+class DeleteReview extends AdminEvent {
+  final String productId;
+  final String reviewId;
+
+  const DeleteReview(this.productId, this.reviewId);
+
+  @override
+  List<Object> get props => [productId, reviewId];
 }
 
 class MarkDelivered extends AdminEvent {

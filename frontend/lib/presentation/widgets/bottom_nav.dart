@@ -9,11 +9,9 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const neonGreen = Color(0xFFCCFF00);
-
     return Container(
       decoration: BoxDecoration(
-        color: neonGreen,
+        color: Colors.white,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.08),
@@ -88,8 +86,8 @@ class _NavBarItem extends StatelessWidget {
                 height: 24,
                 colorFilter: ColorFilter.mode(
                   isSelected
-                      ? Colors.black
-                      : Colors.black.withValues(alpha: 0.4),
+                      ? const Color(0xFF2563EB)
+                      : Colors.grey.withValues(alpha: 0.5),
                   BlendMode.srcIn,
                 ),
               ),
@@ -102,7 +100,7 @@ class _NavBarItem extends StatelessWidget {
               width: isSelected ? 4 : 0,
               height: isSelected ? 4 : 0,
               decoration: BoxDecoration(
-                color: Colors.black.withValues(alpha: 0.8),
+                color: const Color(0xFF2563EB),
                 shape: BoxShape.circle,
               ),
             ),

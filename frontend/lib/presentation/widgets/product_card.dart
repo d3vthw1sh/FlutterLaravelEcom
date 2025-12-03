@@ -85,13 +85,13 @@ class ProductCard extends StatelessWidget {
                             vertical: 5,
                           ),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFCCFF00),
+                            color: const Color(0xFFF97316),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Text(
                             "NEW",
                             style: tt.labelSmall?.copyWith(
-                              color: Colors.black,
+                              color: Colors.white,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 1.1,
                             ),

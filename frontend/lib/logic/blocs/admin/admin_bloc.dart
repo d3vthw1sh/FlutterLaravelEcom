@@ -20,9 +20,11 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     on<LoadAllUsers>(_onLoadAllUsers);
     on<LoadAllOrders>(_onLoadAllOrders);
     on<LoadAllProducts>(_onLoadAllProducts);
+    on<LoadAllReviews>(_onLoadAllReviews);
     on<DeleteUser>(_onDeleteUser);
     on<DeleteOrder>(_onDeleteOrder);
     on<DeleteProduct>(_onDeleteProduct);
+    on<DeleteReview>(_onDeleteReview);
     on<MarkDelivered>(_onMarkDelivered);
   }
 
@@ -133,6 +135,35 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     emit(AdminLoading());
     try {
       await _apiService.dio.put('${ApiConstants.orders}/${event.id}/delivered');
+      emit(AdminActionSuccess());
+    } catch (e) {
+      emit(AdminError(e.toString()));
+    }
+  }
+
+  Future<void> _onLoadAllReviews(
+    LoadAllReviews event,
+    Emitter<AdminState> emit,
+  ) async {
+    emit(AdminLoading());
+    try {
+      final response = await _apiService.dio.get('/api/reviews');
+      final reviews = response.data['reviews'] as List<dynamic>;
+      emit(AdminReviewsLoaded(reviews));
+    } catch (e) {
+      emit(AdminError(e.toString()));
+    }
+  }
+
+  Future<void> _onDeleteReview(
+    DeleteReview event,
+    Emitter<AdminState> emit,
+  ) async {
+    emit(AdminLoading());
+    try {
+      await _apiService.dio.put(
+        '/api/products/${event.productId}/${event.reviewId}',
+      );
       emit(AdminActionSuccess());
     } catch (e) {
       emit(AdminError(e.toString()));

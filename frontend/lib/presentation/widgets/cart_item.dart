@@ -19,20 +19,18 @@ class CartItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const neonGreen = Color(0xFFCCFF00); // neon lime
-    const black = Colors.black;
-
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: neonGreen,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey.shade200),
         boxShadow: [
           BoxShadow(
-            color: black.withValues(alpha: 0.15),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 8,
-            offset: const Offset(0, 3),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -70,7 +68,7 @@ class CartItemWidget extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
-                    color: black,
+                    color: Colors.black,
                   ),
                 ),
 
@@ -81,7 +79,7 @@ class CartItemWidget extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: black,
+                    color: Color(0xFF2563EB),
                   ),
                 ),
 
@@ -102,7 +100,7 @@ class CartItemWidget extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
-                          color: black,
+                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -138,7 +136,7 @@ class CartItemWidget extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w800,
-                  color: black,
+                  color: Colors.black,
                 ),
               ),
             ],
@@ -154,20 +152,23 @@ class CartItemWidget extends StatelessWidget {
     required bool enabled,
     required VoidCallback onPressed,
   }) {
-    const neonGreen = Color(0xFFCCFF00);
-    const black = Colors.black;
-
     return Container(
       width: 30,
       height: 30,
       decoration: BoxDecoration(
-        color: neonGreen.withValues(alpha: 0.8),
-        border: Border.all(color: enabled ? black : Colors.black26),
+        color: Colors.white,
+        border: Border.all(
+          color: enabled ? const Color(0xFF2563EB) : Colors.grey.shade300,
+        ),
         borderRadius: BorderRadius.circular(8),
       ),
       child: IconButton(
         padding: EdgeInsets.zero,
-        icon: Icon(icon, size: 18, color: enabled ? black : Colors.black38),
+        icon: Icon(
+          icon,
+          size: 18,
+          color: enabled ? const Color(0xFF2563EB) : Colors.grey,
+        ),
         onPressed: enabled ? onPressed : null,
       ),
     );
