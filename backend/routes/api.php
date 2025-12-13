@@ -57,7 +57,7 @@ Route::middleware([JwtAuth::class])->group(function () {
     // ADMIN PRODUCT MANAGEMENT
     // -------------------------
     Route::post('/products', [ProductController::class, 'store']);
-    Route::put('/products', [ProductController::class, 'update']);
+    Route::put('/products/{id}', [ProductController::class, 'update']);
     Route::delete('/products/{id}', [ProductController::class, 'destroy']);
     Route::get('/reviews', [ProductController::class, 'allReviews']);
 

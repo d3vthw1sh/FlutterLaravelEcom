@@ -60,3 +60,22 @@ class MarkDelivered extends AdminEvent {
   @override
   List<Object> get props => [id];
 }
+
+class UpdateProduct extends AdminEvent {
+  final String id;
+  final Map<String, dynamic> data;
+
+  const UpdateProduct(this.id, this.data);
+
+  @override
+  List<Object> get props => [id, data];
+}
+
+class AddProduct extends AdminEvent {
+  final Map<String, dynamic> data;
+
+  const AddProduct(this.data);
+
+  @override
+  List<Object> get props => [data];
+}

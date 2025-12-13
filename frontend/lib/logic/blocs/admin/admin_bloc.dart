@@ -26,6 +26,8 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     on<DeleteProduct>(_onDeleteProduct);
     on<DeleteReview>(_onDeleteReview);
     on<MarkDelivered>(_onMarkDelivered);
+    on<UpdateProduct>(_onUpdateProduct);
+    on<AddProduct>(_onAddProduct);
   }
 
   Future<void> _onLoadAllUsers(
@@ -164,6 +166,29 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
       await _apiService.dio.put(
         '/api/products/${event.productId}/${event.reviewId}',
       );
+      emit(AdminActionSuccess());
+    } catch (e) {
+      emit(AdminError(e.toString()));
+    }
+  }
+
+  Future<void> _onUpdateProduct(
+    UpdateProduct event,
+    Emitter<AdminState> emit,
+  ) async {
+    emit(AdminLoading());
+    try {
+      await _productService.updateProduct(event.id, event.data);
+      emit(AdminActionSuccess());
+    } catch (e) {
+      emit(AdminError(e.toString()));
+    }
+  }
+
+  Future<void> _onAddProduct(AddProduct event, Emitter<AdminState> emit) async {
+    emit(AdminLoading());
+    try {
+      await _productService.addProduct(event.data);
       emit(AdminActionSuccess());
     } catch (e) {
       emit(AdminError(e.toString()));
